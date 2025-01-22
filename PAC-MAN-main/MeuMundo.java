@@ -11,6 +11,7 @@ public class MeuMundo extends World
     private PacJogador pacJogador;
     private Fantasma fantasma;
     private Placar placar;
+    private World world;
     
     
     /**
@@ -47,7 +48,23 @@ public class MeuMundo extends World
         addObject(fantasma2,430,300);
         Fantasma fantasma3 = new Fantasma();
         addObject(fantasma3,370,300);
-             
+        Sons.tocarmusicaDeFundo();   
+    }
+
+    /**
+     * Método responsável por tocar a música tema do jogo.
+     */
+    public void started()
+    {
+        Sons.tocarmusicaDeFundo();   
+    }
+    
+    /**
+     * Método responsável por parar de tocar a música tema do jogo.
+     */
+    public void stopped()
+    {
+        Sons.pararmusicaDeFundo();
     }
     
     /**
