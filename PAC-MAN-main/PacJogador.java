@@ -20,6 +20,9 @@ public class PacJogador extends Actor
     private int contador;
     // para alterar a esquerda e direita
     private boolean viradoParaEsquerda;
+    
+    private boolean viradoParaBaixo;
+    private boolean viradoParaCima;
     /**
      * Construtor que incializa o objeto Pac-Man 
      */
@@ -32,7 +35,10 @@ public class PacJogador extends Actor
         contador = 0;
         
         viradoParaEsquerda = false;
-        // Vetor com 4 posições pois temos 4 imagens 
+        viradoParaBaixo = false;
+        viradoParaCima = false;
+        
+        // Vetor com 4 posições pois temos 4 imagens
         imagem = new GreenfootImage[4]; 
 
         // Loop para carregar e redimensionar as imagens
@@ -82,6 +88,10 @@ public class PacJogador extends Actor
         GreenfootImage imagemAtualizada = new GreenfootImage(imagem[imagemAtual]);
         if (viradoParaEsquerda) {
             imagemAtualizada.mirrorHorizontally();
+        } if(viradoParaBaixo){
+            imagemAtualizada.rotate(90); 
+        } if (viradoParaCima) {
+           imagemAtualizada.rotate(-90); // Gira 90 graus para CIMA
         }
         setImage(imagemAtualizada);
     }
@@ -94,21 +104,37 @@ public class PacJogador extends Actor
         if (estaVivo) {
             if (Greenfoot.isKeyDown("W") || Greenfoot.isKeyDown("up")) {
                 setLocation(getX(), getY() - velocidade);
+                if(viradoParaBaixo){
+                    viradoParaBaixo = false;
+                    viradoParaCima = true;
+                    viradoParaEsquerda = false;
+                    atualizarImagem();
+                }
             }
             if (Greenfoot.isKeyDown("A") || Greenfoot.isKeyDown("left")) {
                 setLocation(getX() - velocidade, getY());
                 if (!viradoParaEsquerda) {
                     viradoParaEsquerda = true;
+                    viradoParaBaixo = false;
+                    viradoParaCima = false;
                     atualizarImagem();
                 }
             }
             if (Greenfoot.isKeyDown("S") || Greenfoot.isKeyDown("down")) {
                 setLocation(getX(), getY() + velocidade);
+                if(!viradoParaBaixo){
+                    viradoParaBaixo = true;
+                    viradoParaCima= false;
+                    viradoParaEsquerda = false;
+                    atualizarImagem();
+                }
             }
             if (Greenfoot.isKeyDown("D") || Greenfoot.isKeyDown("right")) {
                 setLocation(getX() + velocidade, getY());
                 if (viradoParaEsquerda) {
                     viradoParaEsquerda = false;
+                    viradoParaBaixo = false;
+                    viradoParaCima = false;
                     atualizarImagem();
                 }
             }
