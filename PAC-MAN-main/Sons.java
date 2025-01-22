@@ -26,7 +26,7 @@ public class Sons
     {
         volume = 30;
         menuMusica = new GreenfootSound("pacman_start.wav");
-        musicaDeFundo = new GreenfootSound("pacman_start.wav");
+        musicaDeFundo = new GreenfootSound("pacman_chomp.wav");
     }
     
     /**
@@ -35,6 +35,24 @@ public class Sons
     public static boolean TesteSom()
     {
         return teste;
+    }
+    
+    /**
+     * Método para tocar a música de fundo do jogo.
+     */
+    public static void tocarmusicaDeFundo()
+    {   
+        
+            try {
+            musicaDeFundo.playLoop();
+            musicaDeFundo.setVolume(volume);
+            teste = true;
+        }
+        catch (Exception e) 
+        {
+            System.out.println(" não foi possível tocar os sons do jogo");
+            teste= false;
+        }
     }
     
     /**
@@ -56,20 +74,11 @@ public class Sons
     }
     
     /**
-     * Método para tocar a música de fundo do jogo.
+     * Método para parar de tocar a música tema do jogo.
      */
-    public void tocarmusicaDeFundo()
+    public static void pararmusicaDeFundo()
     {
-            try {
-            musicaDeFundo.playLoop();
-            musicaDeFundo.setVolume(volume);
-            teste = true;
-        }
-        catch (Exception e) 
-        {
-            System.out.println(" não foi possível tocar os sons do jogo");
-            teste= false;
-        }
+        musicaDeFundo.pause();
     }
     
     /**
@@ -79,7 +88,7 @@ public class Sons
     {
         if (teste)
         {
-            ComendoBolinha = new GreenfootSound("pacman_chomp.wav");
+            ComendoBolinha = new GreenfootSound("pacman_eatfruit.wav");
             ComendoBolinha.play();
             ComendoBolinha.setVolume(70);      
         }
@@ -120,6 +129,7 @@ public class Sons
         if (teste)
         {
             menuMusica.setVolume(volume);
+            musicaDeFundo.setVolume(volume);
         }
     }
 }
